@@ -1,0 +1,120 @@
+- id: '1629879610521'
+  alias: Bedroom Heatpump Timer
+  description: ''
+  trigger:
+  - platform: event
+    event_type: ios.action_fired
+    id: 45min_Sleep
+    event_data:
+      actionName: 45min
+  condition: []
+  action:
+  - delay:
+      hours: 0
+      minutes: 45
+      seconds: 0
+      milliseconds: 0
+  - service: climate.set_hvac_mode
+    target:
+      entity_id: climate.bedroomheatpump
+    data:
+      hvac_mode: 'off'
+  mode: single
+- id: '1631615140165'
+  alias: Lounge Heatpump Timer
+  description: ''
+  trigger:
+  - platform: event
+    event_type: ios.action_fired
+    id: 45min_Sleep_Lounge
+    event_data:
+      actionName: 45minLounge
+  condition: []
+  action:
+  - delay:
+      hours: 0
+      minutes: 45
+      seconds: 0
+      milliseconds: 0
+  - service: climate.set_hvac_mode
+    target:
+      entity_id: climate.loungeheatpump
+    data:
+      hvac_mode: 'off'
+  mode: restart
+- id: '1632640084088'
+  alias: Radio_Select_Radio
+  trigger:
+  - platform: state
+    entity_id: input_select.radio_station
+  action:
+  - service: script.1632639098687
+  mode: single
+- id: '1632642978355'
+  alias: Radio_Select_Playlist
+  trigger:
+  - platform: state
+    entity_id: input_select.playlist
+  action:
+  - service: script.radio_playlist
+  mode: single
+- id: '1643713941954'
+  alias: Media_Reset_Media_Control_Input_Select
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: input_select.media_control
+    from: Lounge
+  condition: []
+  action:
+  - delay:
+      hours: 0
+      minutes: 10
+      seconds: 0
+      milliseconds: 0
+  - service: input_select.select_option
+    target:
+      entity_id: input_select.media_control
+    data:
+      option: Lounge
+  mode: single
+- id: '1643969403377'
+  alias: Media_Set_Joined
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: input_select.media_control
+    to: Lounge & Garage
+  condition: []
+  action:
+  - service: media_player.media_stop
+    target:
+      entity_id:
+      - media_player.mopidy
+      - media_player.mopidy_snapserver
+    data: {}
+  - service: media_player.volume_mute
+    target:
+      entity_id: media_player.snapcast_client_lounge
+    data:
+      is_volume_muted: false
+  mode: single
+- id: '1643969486337'
+  alias: Media_Set_Unjoined
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: input_select.media_control
+    from: Lounge & Garage
+  condition: []
+  action:
+  - service: media_player.media_stop
+    target:
+      entity_id: media_player.mopidy_snapserver
+    data: {}
+  - service: media_player.volume_mute
+    target:
+      entity_id: media_player.snapcast_client_lounge
+    data:
+      is_volume_muted: true
+  mode: single
