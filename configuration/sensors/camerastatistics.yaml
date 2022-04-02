@@ -1,0 +1,56 @@
+  - platform: statistics
+    name: "Camera1 Average FPS over 5min"
+    entity_id: sensor.camera1_detection_fps
+    state_characteristic: mean
+    max_age:
+      minutes: 5
+    sampling_size: 50
+  - platform: statistics
+    name: "Camera2 Average FPS over 5min"
+    entity_id: sensor.camera2_detection_fps
+    state_characteristic: mean
+    max_age:
+      minutes: 5
+    sampling_size: 50
+  - platform: statistics
+    name: "Camera3 Average FPS over 5min"
+    entity_id: sensor.camera3_detection_fps
+    state_characteristic: mean
+    max_age:
+      minutes: 5
+    sampling_size: 50
+  - platform: statistics
+    name: "Camera4 Average FPS over 5min"
+    entity_id: sensor.camera4_detection_fps
+    state_characteristic: mean
+    max_age:
+      minutes: 5
+    sampling_size: 50
+  - platform: statistics
+    name: "Camera5 Average FPS over 5min"
+    entity_id: sensor.camera5_detection_fps
+    state_characteristic: mean
+    max_age:
+      minutes: 5
+    sampling_size: 50
+  - platform: statistics
+    name: "Camera6 Average FPS over 5min"
+    entity_id: sensor.camera6_detection_fps
+    state_characteristic: mean
+    max_age:
+      minutes: 5
+    sampling_size: 50
+  - platform: statistics
+    name: "Camera7 Average FPS over 5min"
+    entity_id: sensor.camera7_detection_fps
+    state_characteristic: mean
+    max_age:
+      minutes: 5
+    sampling_size: 50
+  - platform: statistics
+    name: "Camera8 Average FPS over 5min"
+    entity_id: sensor.camera8_detection_fps
+    state_characteristic: mean
+    max_age:
+      minutes: 5
+    sampling_size: 50

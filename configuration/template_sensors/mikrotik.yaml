@@ -1,0 +1,5 @@
+  - sensor:
+      - name: "Mikrotik vlan1 RX Mbps"
+        state: "{{ (float(states('sensor.mikrotik_vlan1_rx')) / 1024 )| round(2) }}"
+        unit_of_measurement: "Mbps"
+            

@@ -1,0 +1,86 @@
+
+# Configure a default setup of Home Assistant (frontend, api, etc)
+default_config:
+
+http:
+ ssl_certificate: /ssl/fullchain.pem
+ ssl_key: /ssl/privkey.pem
+ ip_ban_enabled: true
+ login_attempts_threshold: 10
+ trusted_proxies: !secret trusted_proxies
+ use_x_forwarded_for: true
+
+frontend:
+  themes: !include_dir_merge_named themes
+
+homeassistant:
+  external_url: !secret external_url
+  internal_url: !secret external_url
+  currency: NZD
+  auth_mfa_modules:
+    - type: totp
+  allowlist_external_dirs: 
+    - /tmp
+    - /config/www
+  media_dirs:
+    music: /share/media/Music
+
+
+logger:
+  default: error
+  logs:
+    custom_components.monitor_docker: critical
+
+#Logging for analytics
+influxdb:
+  host: !secret internal_ip
+  port: 8086
+  database: home_assistant
+  username: homeassistant
+  password: !secret influxdb_password
+  max_retries: 3
+  default_measurement: state
+
+# Text to speech
+tts:
+  - platform: google_translate
+
+#Default configurations edited through UI
+group: !include groups.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+
+#Custom YAML files
+sensor: !include_dir_merge_list configuration/sensors/
+template: !include_dir_merge_list configuration/template_sensors/
+input_select: !include_dir_merge_named configuration/input_select/
+utility_meter: !include_dir_merge_named configuration/utility_meter/
+intent_script: !include_dir_merge_named configuration/intents/
+recorder: !include configuration/recorder.yaml
+
+#Monitor Docker
+monitor_docker: !include configuration/monitor_docker.yaml
+
+#Media Player
+media_player: !include configuration/media_player.yaml
+
+ffmpeg:
+
+browser_mod:
+    devices:
+        1bcfaca9_216eaa69:
+            name: FireBrowser
+    disable:
+      - all
+
+# Google Calender Integration
+google:
+  client_id: !secret google_client_id
+  client_secret: !secret google_client_secret
+  
+google_assistant:
+  project_id: home-assistant---ok
+  service_account: !include SERVICE_ACCOUNT.JSON
+  report_state: true
+

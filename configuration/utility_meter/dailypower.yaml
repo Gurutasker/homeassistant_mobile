@@ -1,0 +1,8 @@
+    daily_home_kwh:
+        source: sensor.home_power_kwh
+        name: Daily Home kWh
+        cycle: daily
+    daily_power_cost:
+        source: sensor.home_power_kwh_cost
+        name: Daily Power Cost
+        cycle: daily

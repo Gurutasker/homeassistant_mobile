@@ -1,0 +1,50 @@
+# Example .gitignore file for your config dir.
+# An * ensures that everything will be ignored.
+#*
+# You can whitelist files/folders with !, these will not be ignored.
+!*.yaml
+!.gitignore
+
+# Generic ignores
+*.log
+*.log.*
+*.db
+*.db-shm
+*.db-wal
+*.pyc
+._*
+__pycache__
+.HA_VERSION
+
+# Ignore folders.
+.storage
+.cloud
+.google.token
+esphome
+esphome/.*/
+esphome/espconfig
+esphome/hptest
+tts
+blueprints
+image
+
+# Build-in blueprints ignores
+blueprints/*/homeassistant
+
+# Ignore vendored stuff
+custom_components
+www/community
+
+# Ensure these YAML files are ignored, otherwise your secret data/credentials will leak.
+ip_bans.yaml
+secrets.yaml
+known_devices.yaml
+frigate.yml
+SERVICE_ACCOUNT.JSON
+rtsp2webrtc_v5_amd64
+google_calendars.yaml
+esphome/secrets.yaml
+mopidy.conf
+automations.yaml
+groups.yaml
+scenes.yaml

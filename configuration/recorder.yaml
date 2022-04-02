@@ -1,0 +1,22 @@
+  include:
+    entity_globs:
+        - sensor.camera*detection_fps
+        - sensor.adguard*
+        - sensor.home_power*
+        - sensor.kaimai_power*
+        - sensor.*temperature
+        - sensor.*lywsd03mmc*
+        - sensor.mikrotik_vlan1*
+        - sensor.mikrotik_wlan1*
+        - sensor.mikrotik_wlan2*
+        - binary_sensor.alarm*
+    entities:
+        - sensor.processor_use_percent
+        - sensor.daily_vlan1_rx
+        - sensor.monthly_vlan1_rx
+        - sensor.daily_vlan1_tx
+        - sensor.monthly_vlan1_tx
+        - sensor.cpu_temperature
+        - sensor.c02_intensity
+        - sensor.grid_fossil_fuel_percentage
+        - sensor.fire_tablet_battery_level

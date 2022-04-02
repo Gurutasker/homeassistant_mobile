@@ -1,0 +1,16 @@
+# Sensors for custom LG Dishwasher Cards
+  - sensor:
+      - name: "dishwasher_door_open"
+        state: "{{ state_attr('sensor.dishwasher','door_open') }}"
+      - name: "dishwasher_time_display"
+        state: >
+          {% if is_state('sensor.dishwasher_run_state', '-') %}
+          {% elif is_state('sensor.dishwasher_run_state', 'Standby') %}
+            -:--
+          {% else %}
+            {{ state_attr('sensor.dishwasher', 'remain_time') }}
+          {% endif %}
+      - name: "blank"
+        state: ""
+      - name: "Dishwasher Rinse Aid"
+        state: "{{ state_attr('sensor.dishwasher', 'rinse_refill') }}"

@@ -1,0 +1,20 @@
+    daily_vlan1_tx:
+        source: sensor.mikrotik_vlan1_tx
+        name: Daily VLAN1 TX
+        cycle: daily
+        delta_values: true
+    monthly_vlan1_tx:
+        source: sensor.mikrotik_vlan1_tx
+        name: Monthly VLAN1 TX
+        cycle: monthly
+        delta_values: true
+    daily_vlan1_rx:
+        source: sensor.mikrotik_vlan1_rx
+        name: Daily VLAN1 RX
+        cycle: daily
+        delta_values: true
+    monthly_vlan1_rx:
+        source: sensor.mikrotik_vlan1_rx
+        name: Monthly VLAN1 RX
+        cycle: monthly
+        delta_values: true

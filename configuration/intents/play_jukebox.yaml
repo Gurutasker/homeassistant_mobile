@@ -1,0 +1,15 @@
+  Play_Jukebox:
+    speech:
+      text: Turning {{ Room }} lights {{ OnOff }}
+    action:
+      - service: notify.pushbullet
+        data:
+          message: Someone asked via apiai to turn {{ Room }} lights {{ OnOff }}
+      - service: >
+          {%- if OnOff == "on" -%}
+            switch.turn_on
+          {%- else -%}
+            switch.turn_off
+          {%- endif -%}
+        target:
+          entity_id: "switch.light_{{ Room | striptags | replace(' ', '_') }}"

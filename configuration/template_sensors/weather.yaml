@@ -1,0 +1,7 @@
+  - sensor:
+      - name: "Weather Outdoor Temperature"
+        unit_of_measurement: "°C"
+        state: "{{ state_attr('weather.home', 'temperature') }}"
+      - name: "Weather Humidity"
+        unit_of_measurement: "%"
+        state: "{{ state_attr('weather.home', 'humidity') }}"

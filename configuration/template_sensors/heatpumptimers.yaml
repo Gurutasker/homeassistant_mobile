@@ -1,0 +1,26 @@
+  - trigger:
+      - platform: time_pattern
+        minutes: "/1"
+    sensor:
+      - name: "Bedroom Heatpump Timer"
+        state: >
+            {% if is_state_attr("automation.bedtime_automation", "current", 1) %}
+                {{ ((2700 - (now() - state_attr('automation.bedtime_automation','last_triggered')).seconds) / 60) | round }}
+            {% elif is_state_attr("automation.bedroom_heatpump_timer", "current", 1) %}
+                {{ ((2700 - (now() - state_attr('automation.bedroom_heatpump_timer','last_triggered')).seconds) / 60) | round }}
+            {% else %}
+                0
+            {% endif %}
+        unit_of_measurement: minutes
+  - trigger:
+      - platform: time_pattern
+        minutes: "/1"
+    sensor:
+      - name: "Lounge Heatpump Timer"
+        state: >
+            {% if is_state_attr("automation.lounge_heatpump_timer", "current", 1) %}
+                {{ ((2700 - (now() - state_attr('automation.lounge_heatpump_timer','last_triggered')).seconds) / 60) | round }}
+            {% else %}
+                0
+            {% endif %}
+        unit_of_measurement: minutes

@@ -1,0 +1,9 @@
+  - platform: mopidy
+    name: Mopidy
+    host: !secret internal_ip
+  - platform: snapcast
+    host: !secret internal_ip
+  - platform: mopidy
+    name: Mopidy_Snapserver
+    host: !secret internal_ip
+    port: 6670

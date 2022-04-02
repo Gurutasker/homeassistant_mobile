@@ -1,0 +1,155 @@
+'1632639098687':
+  alias: Play Radio
+  sequence:
+  - service: media_player.volume_set
+    data:
+      volume_level: 0.7
+    target:
+      entity_id: media_player.mopidy
+  - service: media_player.play_media
+    data_template:
+      entity_id: media_player.mopidy
+      media_content_id: '{% if is_state("input_select.radio_station", "The Hits")
+        %} https://ais-nzme.streamguys1.com/nz_005_aac {% elif is_state("input_select.radio_station",
+        "The Edge") %} https://tunein-icecast.mediaworks.nz/edge_128kbps {% elif is_state("input_select.radio_station",
+        "The Rock") %} https://tunein-icecast.mediaworks.nz/rock_128kbps {% elif is_state("input_select.radio_station",
+        "George FM") %} http://tunein-icecast.mediaworks.nz/george_128kbps {% elif
+        is_state("input_select.radio_station", "GFM Classic Club") %} https://14093.live.streamtheworld.com/GEORGEFM_CC_S01.aac
+        {% elif is_state("input_select.radio_station", "Magic Talk") %} https://tunein-icecast.mediaworks.nz/radiolive_128kbps
+        {% elif is_state("input_select.radio_station", "More FM") %} https://tunein-icecast.mediaworks.nz/more_wlg_128kbp
+        {% elif is_state("input_select.radio_station", "The Breeze") %} https://tunein-icecast.mediaworks.nz/breeze_wellington_128kbps
+        {% elif is_state("input_select.radio_station", "The Sound") %} https://tunein-icecast.mediaworks.nz/sound_128kbps
+        {% elif is_state("input_select.radio_station", "ZM") %} https://ais-nzme.streamguys1.com/nz_008_aac
+        {% endif %}
+
+        '
+      media_content_type: audio/mp4
+  - service: remote.send_command
+    target:
+      entity_id: remote.wi_fi_universal_remote_remote
+    data:
+      device: Yamaha
+      command: Radio
+  mode: single
+radio_power_off:
+  alias: Radio_Power_off
+  sequence:
+  - service: remote.send_command
+    target:
+      entity_id: remote.wi_fi_universal_remote_remote
+    data:
+      device: Yamaha
+      command: Power
+  - service: mopidy.snapshot
+    target:
+      entity_id: '{{entity_id}}'
+  - service: media_player.media_stop
+    target:
+      entity_id: '{{entity_id}}'
+  mode: single
+radio_power_on:
+  alias: Radio_Power_On
+  sequence:
+  - service: remote.send_command
+    target:
+      entity_id: remote.wi_fi_universal_remote_remote
+    data:
+      device: Yamaha
+      command: Radio
+  - service: mopidy.restore
+    target:
+      entity_id: '{{entity_id}}'
+  - service: media_player.media_play
+    target:
+      entity_id: '{{entity_id}}'
+  mode: single
+radio_playlist:
+  alias: Radio_Playlist
+  sequence:
+  - service: media_player.shuffle_set
+    target:
+      entity_id: media_player.mopidy
+    data:
+      shuffle: true
+  - service: media_player.select_source
+    target:
+      entity_id: media_player.mopidy
+    data:
+      source: '{{ states(''input_select.playlist'') }}'
+  - service: remote.send_command
+    target:
+      entity_id: remote.wi_fi_universal_remote_remote
+    data:
+      device: Yamaha
+      command: Radio
+  mode: single
+play_radio_snapcast:
+  alias: Play Radio Snapcast
+  sequence:
+  - service: media_player.volume_set
+    data:
+      volume_level: 0.7
+    target:
+      entity_id: media_player.mopidy_snapserver
+  - service: media_player.play_media
+    data_template:
+      entity_id: media_player.mopidy_snapserver
+      media_content_id: '{% if is_state("input_select.radio_station_snapserver", "The
+        Hits") %} https://ais-nzme.streamguys1.com/nz_005_aac {% elif is_state("input_select.radio_station_snapserver",
+        "The Edge") %} https://tunein-icecast.mediaworks.nz/edge_128kbps {% elif is_state("input_select.radio_station_snapserver",
+        "The Rock") %} https://tunein-icecast.mediaworks.nz/rock_128kbps {% elif is_state("input_select.radio_station_snapserver",
+        "George FM") %} http://tunein-icecast.mediaworks.nz/george_128kbps {% elif
+        is_state("input_select.radio_station_snapserver", "GFM Classic Club") %} https://14093.live.streamtheworld.com/GEORGEFM_CC_S01.aac
+        {% elif is_state("input_select.radio_station_snapserver", "Magic Talk") %}
+        https://tunein-icecast.mediaworks.nz/radiolive_128kbps {% elif is_state("input_select.radio_station_snapserver",
+        "More FM") %} https://tunein-icecast.mediaworks.nz/more_wlg_128kbp {% elif
+        is_state("input_select.radio_station_snapserver", "The Breeze") %} https://tunein-icecast.mediaworks.nz/breeze_wellington_128kbps
+        {% elif is_state("input_select.radio_station_snapserver", "The Sound") %}
+        https://tunein-icecast.mediaworks.nz/sound_128kbps {% elif is_state("input_select.radio_station_snapserver",
+        "ZM") %} https://ais-nzme.streamguys1.com/nz_008_aac {% endif %}
+
+        '
+      media_content_type: audio/mp4
+  - condition: state
+    entity_id: input_select.media_control
+    state: Lounge & Garage
+  - service: remote.send_command
+    target:
+      entity_id: remote.wi_fi_universal_remote_remote
+    data:
+      device: Yamaha
+      command: Radio
+  mode: single
+play_playlist_snapcast:
+  alias: Play Playlist Snapcast
+  sequence:
+  - service: media_player.shuffle_set
+    target:
+      entity_id: media_player.mopidy_snapserver
+    data:
+      shuffle: true
+  - service: media_player.select_source
+    target:
+      entity_id: media_player.mopidy_snapserver
+    data:
+      source: '{{ states(''input_select.playlist_snapserver'') }}'
+  - condition: state
+    entity_id: input_select.media_control
+    state: Lounge & Garage
+  - service: remote.send_command
+    target:
+      entity_id: remote.wi_fi_universal_remote_remote
+    data:
+      device: Yamaha
+      command: Radio
+  mode: single
+radio_set_input:
+  alias: Radio_Set_Amp_Input
+  sequence:
+  - service: remote.send_command
+    target:
+      entity_id: remote.wi_fi_universal_remote_remote
+    data:
+      device: Yamaha
+      command: Radio
+  mode: single

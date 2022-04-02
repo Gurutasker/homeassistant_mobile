@@ -1,0 +1,34 @@
+  - name: Docker
+    url: !secret docker_monitor_url
+    scan_interval: 30
+    containers:
+      - homeassistant
+      - addon_a0d7b954_influxdb
+      - addon_core_mosquitto
+      - addon_ccab4aaf_frigate
+      - addon_cebe7a76_hassio_google_drive_backup
+      - addon_40817795_mopidy
+      - addon_a0d7b954_esphome
+      - addon_a0d7b954_adguard
+      - addon_core_duckdns
+      - ultrasonics
+      - portainer
+    rename:
+      homeassistant: Home Assistant
+      addon_a0d7b954_influxdb: InfluxDB
+      addon_core_mosquitto: Mosquitto
+      addon_ccab4aaf_frigate: Frigate
+      addon_cebe7a76_hassio_google_drive_backup: Google Backup
+      addon_40817795_mopidy: Mopidy Snapcast
+      addon_a0d7b954_esphome: ESPHome
+      addon_a0d7b954_adguard: Adguard
+      addon_core_duckdns: DuckDNS
+    monitored_conditions:
+      - state
+      - status
+      - memory
+      - 1cpu_percentage
+      - network_speed_up
+      - network_speed_down
+      - health
+      - allinone

@@ -1,0 +1,55 @@
+  radio_station:
+    name: 'Select Radio Station:'
+    options:
+      - The Hits
+      - The Edge
+      - The Rock
+      - George FM
+      - GFM Classic Club
+      - Magic Talk
+      - More FM
+      - The Breeze
+      - The Sound
+      - ZM
+  playlist:
+    name: 'Select Playlist:'
+    options:
+      - Percy
+      - Percy_Sync
+      - Leela
+      - Electronica
+  radio_station_snapserver:
+    name: 'Select Radio Station:'
+    options:
+      - The Hits
+      - The Edge
+      - The Rock
+      - George FM
+      - GFM Classic Club
+      - Magic Talk
+      - More FM
+      - The Breeze
+      - The Sound
+      - ZM
+  playlist_snapserver:
+    name: 'Select Playlist:'
+    options:
+      - Percy
+      - Leela
+      - Electronica
+      - Percy_Sync
+  media_control:
+    name: 'Media Control'
+    options:
+      - Lounge
+      - Garage
+      - Lounge & Garage
+    icon: mdi:speaker
+    initial: Lounge
+  heatpump_control:
+    name: 'Heatpump Control'
+    options:
+      - Lounge
+      - Bedroom
+    icon: mdi:radiator
+    initial: Lounge
