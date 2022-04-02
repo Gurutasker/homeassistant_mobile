@@ -1,0 +1,1613 @@
+views:
+  - title: Home
+    icon: mdi:home
+    type: custom:vertical-layout
+    badges: []
+    cards:
+      - type: custom:mushroom-chips-card
+        chips:
+          - type: entity
+            entity: sensor.home_power_kw
+            icon_color: green
+          - type: weather
+            entity: weather.openweathermap
+            show_conditions: false
+            show_temperature: true
+          - type: entity
+            entity: sensor.mikrotik_vlan1_rx_mbps
+            icon: mdi:arrow-down-bold
+            icon_color: green
+          - type: entity
+            entity: binary_sensor.alarm_armed
+            name: Armed
+            icon: mdi:alarm-panel
+            icon_color: red
+            tap_action:
+              action: more-info
+            hold_action:
+              action: none
+            double_tap_action:
+              action: none
+            card_mod:
+              style: |
+                :host {
+                  --icon-color: 
+                  {% if is_state('binary_sensor.alarm_armed', 'on') %}
+                    red
+                  {% else %}
+                    green
+                  {% endif %}
+                  !important ;
+                    }
+      - type: horizontal-stack
+        cards:
+          - type: custom:mushroom-person-card
+            entity: person.aaron
+            use_entity_picture: true
+          - type: custom:mushroom-person-card
+            entity: person.leela
+            use_entity_picture: true
+      - type: custom:vertical-stack-in-card
+        cards:
+          - type: custom:atomic-calendar-revive
+            enableModeChange: false
+            firstDayOfWeek: 1
+            maxDaysToShow: 1
+            refreshInterval: 300
+            entities:
+              - entity: calendar.family
+                whitelist: Percy
+                icon: mdi:teddy-bear
+              - entity: calendar.garbage
+                icon: mdi:trash-can
+              - entity: calendar.family
+                blacklist: Percy
+            showDate: true
+            showRelativeTime: false
+            hideFinishedEvents: false
+            showNoEventsForToday: false
+            noEventText: null
+            disableLocationLink: true
+            showMonth: false
+            showCurrentEventLine: false
+            showWeekDay: false
+            showEventIcon: true
+            disableEventLink: false
+            showFullDayProgress: false
+            showLocation: false
+            fullDayEventText: null
+            showDescription: false
+            showProgressBar: false
+            showLoader: false
+            sortByStartTime: true
+            name: Today
+            dateFormat: LL
+            dimFinishedEvents: true
+            dateSize: 0
+            card_mod:
+              style: |
+                .event-left {
+                    padding: 0px;
+                        }
+                .event-leftCurrentDay {
+                    width: 0px;
+                        }
+                .cal-card {
+                    padding: 16px 16px 0px 16px;
+                        }
+                .cal-name {
+                    line-height: 20px;
+                    padding: 8px 0px;
+                        }
+                .calDate {
+                    line-height: 20px;
+                    padding: 8px 0px;
+                        }
+          - type: custom:atomic-calendar-revive
+            enableModeChange: false
+            firstDayOfWeek: 1
+            maxDaysToShow: 1
+            startDaysAhead: 1
+            refreshInterval: 60
+            entities:
+              - entity: calendar.family
+                whitelist: Percy
+                icon: mdi:teddy-bear
+              - entity: calendar.garbage
+                icon: mdi:trash-can
+              - entity: calendar.family
+                blacklist: Percy
+            showDate: false
+            showRelativeTime: false
+            hideFinishedEvents: false
+            showNoEventsForToday: false
+            disableLocationLink: true
+            showMonth: false
+            showCurrentEventLine: false
+            showWeekDay: false
+            showEventIcon: true
+            disableEventLink: false
+            showFullDayProgress: false
+            showLocation: false
+            fullDayEventText: null
+            noEventText: null
+            showDescription: false
+            showProgressBar: false
+            showLoader: false
+            sortByStartTime: true
+            name: Tomorrow
+            dateFormat: LL
+            dimFinishedEvents: true
+            noEventsForNextDaysText: null
+            dateSize: 0
+            showHours: false
+            card_mod:
+              style: |
+                .event-left {
+                    padding: 0px;
+                        }
+                .event-leftCurrentDay {
+                    width: 0px;
+                        }
+                .cal-name {
+                    color: orange;
+                    font-size: 120%;
+                    line-height: 20px;
+                    padding: 4px 0px;
+                        }
+                .cal-card {
+                    padding: 0px 16px 16px 16px;
+                        }
+                td {
+                  padding: 0px !important;
+                  border: 0px !important;
+                        }
+                .daywrap {
+                    padding: 0;
+                    border-top: 0;
+                      }
+        card_mod:
+          style: |
+            ha-card {
+              background: none;
+              }
+      - type: horizontal-stack
+        cards:
+          - type: custom:mushroom-entity-card
+            entity: sensor.bedroom_lywsd03mmc_temperature
+            name: Bedroom
+            hide_icon: true
+          - type: custom:mushroom-entity-card
+            entity: sensor.lounge_lywsd03mmc_temperature
+            name: Lounge
+            hide_icon: true
+          - type: custom:mushroom-entity-card
+            entity: sensor.percy_lywsd03mmc_temperature
+            name: Percy
+            hide_icon: true
+          - type: custom:mushroom-entity-card
+            entity: sensor.study_lywsd03mmc_temperature
+            name: Study
+            hide_icon: true
+      - type: custom:weather-card
+        entity: weather.openweathermap
+        hourly_forecast: false
+        forecast: true
+        details: false
+        current: false
+        number_of_forecasts: '5'
+      - square: false
+        columns: 2
+        type: grid
+        cards:
+          - type: conditional
+            conditions:
+              - entity: fan.ensuite_fan
+                state: 'on'
+            card:
+              type: custom:button-card
+              entity: fan.ensuite_fan
+              color: rgb(28, 128, 199)
+              state:
+                - value: 'on'
+                  spin: true
+              size: 40%
+              styles:
+                grid:
+                  - grid-template-areas: '"i n"'
+                  - grid-template-rows: 1fr
+                  - grid-template-columns: 30%
+          - type: conditional
+            conditions:
+              - entity: fan.bathroom_fan
+                state: 'on'
+            card:
+              type: custom:button-card
+              entity: fan.bathroom_fan
+              color: rgb(28, 128, 199)
+              state:
+                - value: 'on'
+                  spin: true
+              size: 40%
+              styles:
+                grid:
+                  - grid-template-areas: '"i n"'
+                  - grid-template-rows: 1fr
+                  - grid-template-columns: 30%
+  - title: Media
+    path: media
+    icon: mdi:account-music
+    badges: []
+    cards:
+      - type: custom:vertical-stack-in-card
+        cards:
+          - type: custom:state-switch
+            entity: input_select.media_control
+            states:
+              Lounge:
+                type: custom:vertical-stack-in-card
+                card_mod:
+                  style: |
+                    ha-card {
+                      background: none;
+                      border-radius: 0px
+                        }
+                cards:
+                  - type: custom:mini-media-player
+                    name: Lounge Media Server
+                    card_mod:
+                      style: |
+                        :host {
+                          padding: 16px;
+                            }
+                    group: true
+                    hide:
+                      power: true
+                      shuffle: false
+                      runtime: false
+                      runtime_remaining: false
+                      source: true
+                    shortcuts:
+                      columns: 4
+                      buttons:
+                        - icon: mdi:radio
+                          type: script
+                          id: script.radio_power_on
+                          service_data:
+                            entity_id: media_player.mopidy
+                        - icon: mdi:power
+                          type: script
+                          id: script.radio_power_off
+                          service_data:
+                            entity_id: media_player.mopidy
+                        - icon: mdi:plus
+                          type: service
+                          id: remote.send_command
+                          data:
+                            entity_id: remote.wi_fi_universal_remote_remote
+                            device: Yamaha
+                            command: VolumeUp
+                            num_repeats: 2
+                            delay_secs: 1
+                        - icon: mdi:minus
+                          type: service
+                          id: remote.send_command
+                          data:
+                            entity_id: remote.wi_fi_universal_remote_remote
+                            device: Yamaha
+                            command: VolumeDown
+                            num_repeats: 2
+                            delay_secs: 1
+                    entity: media_player.mopidy
+                  - type: entities
+                    card_mod:
+                      style: |
+                        ha-card {
+                          background: none;
+                          overflow: auto;
+                          }
+                    entities:
+                      - entity: input_select.radio_station
+                        tap_action:
+                          action: call-service
+                          service: script.1632639098687
+                          service_data:
+                            entity_id: media_player.mopidy
+                        icon: mdi:radio
+                        card_mod:
+                          style: |
+                            mwc-list-item {
+                            display: inline-flex; 
+                              }
+                      - entity: input_select.playlist
+                        icon: mdi:playlist-music
+                        tap_action:
+                          action: call-service
+                          service: script.Radio_Playlist
+                          service_data:
+                            entity_id: media_player.mopidy
+                        card_mod:
+                          style: |
+                            mwc-list-item {
+                            display: inline-flex; 
+                              }
+                      - type: weblink
+                        name: Now Playing
+                        url: http://localhost:6680/iris/
+                        icon: mdi:music
+                      - type: weblink
+                        name: Search
+                        url: http://localhost:6680/iris/search
+                        icon: mdi:movie-search
+              Garage:
+                type: custom:vertical-stack-in-card
+                card_mod:
+                  style: |
+                    ha-card {
+                      background: none;
+                        }
+                cards:
+                  - type: custom:mini-media-player
+                    name: Garage Media Server
+                    group: true
+                    card_mod:
+                      style: |
+                        :host {
+                          padding: 16px;
+                            }
+                    hide:
+                      power: true
+                      shuffle: false
+                      runtime: false
+                      runtime_remaining: false
+                      source: true
+                    entity: media_player.mopidy_snapserver
+                  - type: entities
+                    card_mod:
+                      style: |
+                        ha-card {
+                          background: none;
+                          overflow: auto;
+                          }
+                    entities:
+                      - entity: input_select.radio_station_snapserver
+                        tap_action:
+                          action: call-service
+                          service: script.play_radio_snapcast
+                          service_data:
+                            entity_id: media_player.mopidy_snapserver
+                        icon: mdi:radio
+                        card_mod:
+                          style: |
+                            mwc-list-item {
+                            display: inline-flex; 
+                              }
+                      - entity: input_select.playlist_snapserver
+                        icon: mdi:playlist-music
+                        tap_action:
+                          action: call-service
+                          service: script.play_playlist_snapcast
+                          service_data:
+                            entity_id: media_player.mopidy_snapserver
+                        card_mod:
+                          style: |
+                            mwc-list-item {
+                            display: inline-flex; 
+                              }
+                      - type: weblink
+                        name: Now Playing
+                        url: http://localhost:6670/iris/
+                        icon: mdi:music
+                      - type: weblink
+                        name: Search
+                        url: http://localhost:6670/iris/search
+                        icon: mdi:movie-search
+              Lounge & Garage:
+                type: custom:vertical-stack-in-card
+                card_mod:
+                  style: |
+                    ha-card {
+                      background: none;
+                        }
+                cards:
+                  - type: custom:mini-media-player
+                    group: true
+                    card_mod:
+                      style: |
+                        :host {
+                          padding: 16px;
+                            }
+                    name: Joined Media Server
+                    hide:
+                      power: true
+                      shuffle: false
+                      runtime: false
+                      runtime_remaining: false
+                      source: true
+                    shortcuts:
+                      columns: 4
+                      buttons:
+                        - icon: mdi:radio
+                          type: script
+                          id: script.radio_power_on
+                        - icon: mdi:power
+                          type: script
+                          id: script.radio_power_off
+                          service_data:
+                            entity_id: media_player.mopidy_snapserver
+                        - icon: mdi:plus
+                          type: service
+                          id: remote.send_command
+                          service_data:
+                            entity_id: media_player.mopidy_snapserver
+                          data:
+                            entity_id: remote.wi_fi_universal_remote_remote
+                            device: Yamaha
+                            command: VolumeUp
+                            num_repeats: 2
+                            delay_secs: 1
+                        - icon: mdi:minus
+                          type: service
+                          id: remote.send_command
+                          data:
+                            entity_id: remote.wi_fi_universal_remote_remote
+                            device: Yamaha
+                            command: VolumeDown
+                            num_repeats: 2
+                            delay_secs: 1
+                    entity: media_player.mopidy_snapserver
+                  - type: custom:mini-media-player
+                    group: true
+                    card_mod:
+                      style: |
+                        :host {
+                          padding: 16px;
+                            }
+                    name: Lounge
+                    hide:
+                      power: true
+                      controls: true
+                    entity: media_player.snapcast_client_lounge
+                    icon: mdi:cast-audio
+                  - type: custom:mini-media-player
+                    group: true
+                    card_mod:
+                      style: |
+                        :host {
+                          padding: 16px;
+                            }
+                    name: Garage
+                    hide:
+                      power: true
+                      controls: true
+                    entity: >-
+                      media_player.snapcast_client_2131b32b_e385_41a3_a819_97f3202f34c9
+                    icon: mdi:cast-audio
+                  - type: entities
+                    card_mod:
+                      style: |
+                        ha-card {
+                          background: none;
+                          overflow: auto;
+                          }
+                    entities:
+                      - entity: input_select.radio_station_snapserver
+                        tap_action:
+                          action: call-service
+                          service: script.play_radio_snapcast
+                          service_data:
+                            entity_id: media_player.mopidy_snapserver
+                        icon: mdi:radio
+                        card_mod:
+                          style: |
+                            mwc-list-item {
+                            display: inline-flex; 
+                              }
+                      - entity: input_select.playlist_snapserver
+                        icon: mdi:playlist-music
+                        tap_action:
+                          action: call-service
+                          service: script.play_playlist_snapcast
+                          service_data:
+                            entity_id: media_player.mopidy_snapserver
+                        card_mod:
+                          style: |
+                            mwc-list-item {
+                            display: inline-flex; 
+                              }
+                      - type: weblink
+                        name: Now Playing
+                        url: http://localhost:6670/iris/
+                        icon: mdi:music
+                      - type: weblink
+                        name: Search
+                        url: http://localhost:6670/iris/search
+                        icon: mdi:movie-search
+          - type: horizontal-stack
+            cards:
+              - type: custom:button-card
+                tap_action:
+                  action: call-service
+                  service: input_select.select_option
+                  service_data:
+                    entity_id: input_select.media_control
+                    option: Lounge
+                icon: mdi:speaker-multiple
+                name: Lounge
+                layout: icon_name
+                size: 70%
+                styles:
+                  card:
+                    - padding: 10px 0px 10px 0px
+                    - background-color: |
+                        [[[
+                          if (states['input_select.media_control'].state == 'Lounge')
+                            return "green";
+                          if (states['media_player.mopidy'].state == 'playing')
+                            return "lightgreen";
+
+                          return "grey";
+                        ]]]
+                    - border-radius: 0px 0px 0px 20px
+                    - border-style: solid
+                    - border-color: var(--primary-background-color)
+                    - border-width: 1px
+                  icon:
+                    - justify-self: start
+                    - padding: 0px 0px 0px 2px
+                  name:
+                    - justify-self: start
+                    - padding: 4px 3px
+                    - align-self: start
+                    - font-family: >-
+                        var(--paper-input-container-shared-input-style_-_font-family)
+                  img_cell:
+                    - justify-content: start
+                    - align-items: start
+                    - margin: none
+                  grid:
+                    - grid-template-areas: '"i n"'
+                    - grid-template-columns: 40px min-content
+              - type: custom:button-card
+                tap_action:
+                  action: call-service
+                  service: input_select.select_option
+                  service_data:
+                    entity_id: input_select.media_control
+                    option: Garage
+                icon: mdi:speaker-multiple
+                name: Garage
+                layout: icon_name
+                size: 70%
+                styles:
+                  card:
+                    - padding: 10px 0px 10px 0px
+                    - background-color: |
+                        [[[
+                          if (states['input_select.media_control'].state == 'Garage')
+                            return "green";
+                          if (states['input_select.media_control'].state == 'Lounge & Garage')
+                            return "grey";
+                          if (states['media_player.mopidy_snapserver'].state == 'playing')
+                            return "lightgreen";
+                          return "grey";
+
+                        ]]]
+                    - border-radius: 0px 0px 0px 0px
+                    - border-style: solid
+                    - border-color: var(--primary-background-color)
+                    - border-width: 1px
+                  icon:
+                    - justify-self: start
+                    - padding: 0px 0px 0px 2px
+                  name:
+                    - justify-self: start
+                    - padding: 4px 3px
+                    - align-self: start
+                    - font-family: >-
+                        var(--paper-input-container-shared-input-style_-_font-family)
+                  img_cell:
+                    - justify-content: start
+                    - align-items: start
+                    - margin: none
+                  grid:
+                    - grid-template-areas: '"i n"'
+                    - grid-template-columns: 40px min-content
+              - type: custom:button-card
+                entity: input_select.media_control
+                tap_action:
+                  action: call-service
+                  service: input_select.select_option
+                  service_data:
+                    entity_id: input_select.media_control
+                    option: Lounge & Garage
+                icon: mdi:link-variant-off
+                name: Joined
+                layout: icon_name
+                size: 70%
+                state:
+                  - value: Lounge & Garage
+                    icon: mdi:link-variant
+                styles:
+                  card:
+                    - padding: 10px 0px 10px
+                    - background-color: |
+                        [[[
+                          if (states['input_select.media_control'].state == 'Lounge & Garage')
+                            return "green";
+                          return "grey";
+                        ]]]
+                    - border-radius: 0px 0px 20px 0px
+                    - border-style: solid
+                    - border-color: var(--primary-background-color)
+                    - border-width: 1px
+                  icon:
+                    - justify-self: start
+                    - padding: 0px 0px 0px 2px
+                  name:
+                    - justify-self: start
+                    - padding: 4px 3px
+                    - align-self: start
+                    - font-family: >-
+                        var(--paper-input-container-shared-input-style_-_font-family)
+                  img_cell:
+                    - justify-content: start
+                    - align-items: start
+                    - margin: none
+                  grid:
+                    - grid-template-areas: '"i n"'
+                    - grid-template-columns: 40px min-content
+  - title: Heating
+    path: heating
+    icon: mdi:radiator
+    type: custom:vertical-layout
+    badges: []
+    cards:
+      - type: custom:vertical-stack-in-card
+        cards:
+          - type: custom:state-switch
+            entity: input_select.heatpump_control
+            states:
+              Lounge:
+                type: custom:vertical-stack-in-card
+                card_mod:
+                  style: |
+                    ha-card {
+                      background: none;
+                        }
+                cards:
+                  - type: custom:simple-thermostat
+                    card_mod:
+                      style: |
+                        ha-card {
+                          background: none;
+                            }
+                    entity: climate.loungeheatpump
+                    header:
+                      name: Lounge Heat Pump
+                    control:
+                      - hvac
+                      - swing
+                      - fan
+                    step_size: '1'
+                    layout:
+                      step: column
+                    hide:
+                      temperature: true
+                    sensors:
+                      - entity: sensor.lounge_lywsd03mmc_temperature
+                        name: Currently
+                      - entity: sensor.lounge_heatpump_timer
+                        name: Timer
+                  - type: horizontal-stack
+                    cards:
+                      - type: custom:button-card
+                        card_mod:
+                          style: |
+                            ha-card {
+                              background: none;
+                                }
+                        entity: sensor.lounge_heatpump_timer
+                        layout: icon_name_state
+                        state:
+                          - value: '0'
+                            icon: mdi:timer-off
+                            color: rgb(255, 0, 0)
+                          - value: '1'
+                            operator: '>='
+                            icon: mdi:timer
+                            color: rgb(0, 128, 0)
+                        tap_action:
+                          action: call-service
+                          service: automation.trigger
+                          service_data:
+                            entity_id: automation.lounge_heatpump_timer
+                        name: 45min Timer
+                        size: 20%
+                        styles:
+                          icon: null
+                      - type: custom:button-card
+                        card_mod:
+                          style: |
+                            ha-card {
+                              background: none;
+                                }
+                        entity: sensor.bedroom_heatpump_timer
+                        layout: icon_name_state
+                        state:
+                          - value: '0'
+                            icon: mdi:sleep-off
+                            color: rgb(255, 0, 0)
+                          - value: '1'
+                            operator: '>='
+                            icon: mdi:sleep
+                            color: rgb(0, 128, 0)
+                        tap_action:
+                          action: call-service
+                          service: automation.trigger
+                          service_data:
+                            entity_id: automation.bedtime_automation
+                        name: Bedtime
+                        size: 20%
+              Bedroom:
+                type: custom:vertical-stack-in-card
+                card_mod:
+                  style: |
+                    ha-card {
+                      background: none;
+                        }
+                cards:
+                  - type: custom:simple-thermostat
+                    card_mod:
+                      style: |
+                        ha-card {
+                          background: none;
+                            }
+                    entity: climate.bedroomheatpump
+                    header: null
+                    name: Bedroom Heat Pump
+                    control:
+                      - hvac
+                      - swing
+                      - fan
+                    step_size: '1'
+                    layout:
+                      step: column
+                    hide:
+                      temperature: true
+                    sensors:
+                      - entity: sensor.bedroom_lywsd03mmc_temperature
+                        name: Currently
+                      - entity: sensor.bedroom_heatpump_timer
+                        name: Timer
+                  - type: horizontal-stack
+                    card_mod:
+                      style: |
+                        :host {
+                            padding: 20px !important;
+                              }
+                    cards:
+                      - type: custom:button-card
+                        card_mod:
+                          style: |
+                            ha-card {
+                              background: none;
+                                }
+                        entity: sensor.bedroom_heatpump_timer
+                        layout: icon_name_state
+                        state:
+                          - value: '0'
+                            icon: mdi:timer-off
+                            color: rgb(255, 0, 0)
+                          - value: '1'
+                            operator: '>='
+                            icon: mdi:timer
+                            color: rgb(0, 128, 0)
+                        tap_action:
+                          action: call-service
+                          service: automation.trigger
+                          service_data:
+                            entity_id: automation.bedroom_heatpump_timer
+                        name: 45min Timer
+                        size: 20%
+                      - type: custom:button-card
+                        card_mod:
+                          style: |
+                            ha-card {
+                              background: none;
+                                }
+                        entity: sensor.bedroom_heatpump_timer
+                        layout: icon_name_state
+                        state:
+                          - value: '0'
+                            icon: mdi:sleep-off
+                            color: rgb(255, 0, 0)
+                          - value: '1'
+                            operator: '>='
+                            icon: mdi:sleep
+                            color: rgb(0, 128, 0)
+                        tap_action:
+                          action: call-service
+                          service: automation.trigger
+                          service_data:
+                            entity_id: automation.bedtime_automation
+                        name: Bedtime
+                        size: 20%
+          - type: horizontal-stack
+            cards:
+              - type: custom:button-card
+                entity: climate.loungeheatpump
+                tap_action:
+                  action: call-service
+                  service: input_select.select_option
+                  service_data:
+                    entity_id: input_select.heatpump_control
+                    option: Lounge
+                icon: mdi:radiator
+                name: Lounge
+                state:
+                  - value: dry
+                    icon: mdi:water-sync
+                  - value: heat_cool
+                    icon: mdi:sun-snowflake
+                  - value: fan_only
+                    icon: mdi:fan
+                  - value: heat
+                    icon: mdi:radiator
+                  - value: cool
+                    icon: mdi:snowflake
+                  - value: 'off'
+                    icon: mdi:radiator-off
+                layout: icon_name
+                size: 40%
+                styles:
+                  card:
+                    - padding: 10px 0px 10px 0px
+                    - background-color: |
+                        [[[
+                          if (states['input_select.heatpump_control'].state == 'Lounge')
+                            return "green";
+                          if (states['climate.loungeheatpump'].state != 'off')
+                            return "lightgreen";
+                          return "grey";
+                        ]]]
+                    - animation: |
+                        [[[
+                          if (states['input_select.heatpump_control'].state == 'Lounge')
+                            return "";
+                          if (states['climate.loungeheatpump'].state != 'off')
+                            return "pulse 1s infinite";
+                          return "";
+                        ]]]
+                    - border-radius: 0px 0px 0px 10px
+                    - border-style: solid
+                    - border-color: var(--primary-background-color)
+                    - border-width: 1px
+                    - margin: none
+                  icon:
+                    - justify-self: start
+                    - padding: 0px 0px 0px 2px
+                  name:
+                    - justify-self: start
+                    - padding: 4px 3px
+                    - align-self: start
+                    - font-family: >-
+                        var(--paper-input-container-shared-input-style_-_font-family)
+                  img_cell:
+                    - justify-content: start
+                    - align-items: start
+                    - margin: none
+                  grid:
+                    - grid-template-areas: '"i n"'
+                    - grid-template-columns: 70px min-content
+                extra_styles: |
+                  @keyframes pulse {
+                    0% {
+                      -moz-box-shadow: 0 0 0 0 rgba(255,0,0, 0.7);
+                      box-shadow: 0 0 0 0 rgba(255,0,0, 0.7);
+                    }
+                    70% {
+                        -moz-box-shadow: 0 0 0 4px rgba(240,52,52, 0.9);
+                        box-shadow: 0 0 0 4px rgba(240,52,52, 0.7);
+                    }
+                    100% {
+                        -moz-box-shadow: 0 0 0 0 rgba(240,52,52, 0);
+                        box-shadow: 0 0 0 0 rgba(240,52,52, 0);
+                    }
+                  }
+              - type: custom:button-card
+                entity: climate.bedroomheatpump
+                tap_action:
+                  action: call-service
+                  service: input_select.select_option
+                  service_data:
+                    entity_id: input_select.heatpump_control
+                    option: Bedroom
+                icon: mdi:radiator
+                name: Bedroom
+                state:
+                  - value: dry
+                    icon: mdi:water-sync
+                  - value: heat_cool
+                    icon: mdi:sun-snowflake
+                  - value: fan_only
+                    icon: mdi:fan
+                  - value: heat
+                    icon: mdi:radiator
+                  - value: cool
+                    icon: mdi:snowflake
+                  - value: 'off'
+                    icon: mdi:radiator-off
+                layout: icon_name
+                size: 40%
+                styles:
+                  card:
+                    - padding: 10px 0px 10px 0px
+                    - background-color: |
+                        [[[
+                          if (states['input_select.heatpump_control'].state == 'Bedroom')
+                            return "green";
+                          if (states['climate.bedroomheatpump'].state != 'off')
+                            return "lightgreen";
+                          return "grey";
+                        ]]]
+                    - animation: |
+                        [[[
+                          if (states['input_select.heatpump_control'].state == 'Bedroom')
+                            return "";
+                          if (states['climate.bedroomheatpump'].state != 'off')
+                            return "pulse 1s infinite";
+                          return "";
+                        ]]]
+                    - border-radius: 0px 0px 10px 0px
+                    - border-style: solid
+                    - border-color: var(--primary-background-color)
+                    - border-width: 1px
+                    - margin: none
+                  icon:
+                    - justify-self: start
+                    - padding: 0px 0px 0px 2px
+                  name:
+                    - justify-self: start
+                    - padding: 4px 3px
+                    - align-self: start
+                    - font-family: >-
+                        var(--paper-input-container-shared-input-style_-_font-family)
+                  img_cell:
+                    - justify-content: start
+                    - align-items: start
+                    - margin: none
+                  grid:
+                    - grid-template-areas: '"i n"'
+                    - grid-template-columns: 70px min-content
+                extra_styles: |
+                  @keyframes pulse {
+                    0% {
+                      -moz-box-shadow: 0 0 0 0 rgba(255,0,0, 0.7);
+                      box-shadow: 0 0 0 0 rgba(255,0,0, 0.7);
+                    }
+                    70% {
+                        -moz-box-shadow: 0 0 0 4px rgba(240,52,52, 0.9);
+                        box-shadow: 0 0 0 4px rgba(240,52,52, 0.7);
+                    }
+                    100% {
+                        -moz-box-shadow: 0 0 0 0 rgba(240,52,52, 0);
+                        box-shadow: 0 0 0 0 rgba(240,52,52, 0);
+                    }
+                  }
+  - title: Security
+    path: security
+    icon: mdi:cctv
+    badges: []
+    cards:
+      - type: custom:frigate-card
+        cameras:
+          - camera_entity: camera.camera1
+          - camera_entity: camera.camera2
+          - camera_entity: camera.camera3
+          - camera_entity: camera.camera4
+          - camera_entity: camera.camera5
+          - camera_entity: camera.camera6
+        view:
+          update_cycle_camera: true
+          update_seconds: 10
+          update_force: true
+        live:
+          controls:
+            title:
+              mode: none
+          lazy_unload: true
+      - type: horizontal-stack
+        cards:
+          - type: vertical-stack
+            cards:
+              - type: entities
+                entities:
+                  - entity: switch.camera1_detect
+                    name: Cam 1
+                  - entity: switch.camera2_detect
+                    name: Cam 2
+                  - entity: switch.camera3_detect
+                    name: Cam 3
+                  - entity: switch.camera4_detect
+                    name: Cam 4
+                state_color: true
+          - type: vertical-stack
+            cards:
+              - type: entities
+                entities:
+                  - entity: switch.camera5_detect
+                    name: Cam 5
+                  - entity: switch.camera6_detect
+                    name: Cam 6
+                  - entity: switch.camera7_detect
+                    name: Cam 7
+                  - entity: switch.camera8_detect
+                    name: Cam 8
+                state_color: true
+  - title: Network
+    path: network
+    icon: mdi:access-point-network
+    badges: []
+    cards:
+      - type: vertical-stack
+        cards:
+          - type: horizontal-stack
+            cards:
+              - type: custom:button-card
+                name: Daily RX
+                entity: sensor.daily_vlan1_rx
+                show_icon: false
+                styles:
+                  grid:
+                    - grid-template-areas: ' "n DailyRX" "n DailyRX"'
+                    - grid-template-columns: 40% 60%
+                    - grid-template-rows: 1fr
+                  custom_fields:
+                    DailyRX:
+                      - font-size: 20px
+                  name:
+                    - white-space: normal
+                    - padding-left: 16px
+                custom_fields:
+                  DailyRX: |
+                    [[[
+                        if ((states['sensor.daily_vlan1_rx'].state) > 1048576) {
+                        return `${Math.round((states['sensor.daily_vlan1_rx'].state) / 1048576 * 100) / 100  } Gb`
+                          }
+                        else
+                          {
+                        return `${Math.round((states['sensor.daily_vlan1_rx'].state) / 1024 * 100) / 100  } Mb`
+                          }
+                    ]]]
+              - type: custom:button-card
+                name: Daily TX
+                entity: sensor.daily_vlan1_tx
+                show_icon: false
+                styles:
+                  grid:
+                    - grid-template-areas: ' "n DailyTX" '
+                    - grid-template-columns: 40% 60%
+                    - grid-template-rows: 1fr
+                  custom_fields:
+                    DailyTX:
+                      - font-size: 20px
+                  name:
+                    - white-space: normal
+                    - padding-left: 16px
+                custom_fields:
+                  DailyTX: |
+                    [[[
+                        if ((states['sensor.daily_vlan1_tx'].state) > 1048576) {
+                        return `${Math.round((states['sensor.daily_vlan1_tx'].state) / 1048576 * 100) / 100  } Gb`
+                          }
+                        else
+                          {
+                        return `${Math.round((states['sensor.daily_vlan1_tx'].state) / 1024 * 100) / 100  } Mb`
+                          }
+                    ]]]
+          - type: horizontal-stack
+            cards:
+              - type: custom:button-card
+                name: Monthly RX
+                entity: sensor.monthly_vlan1_rx
+                show_icon: false
+                styles:
+                  grid:
+                    - grid-template-areas: '  "n MonthlyRX"'
+                    - grid-template-columns: 40% 60%
+                    - grid-template-rows: 1fr
+                  custom_fields:
+                    MonthlyRX:
+                      - font-size: 20px
+                  name:
+                    - white-space: normal
+                    - padding-left: 16px
+                custom_fields:
+                  MonthlyRX: |
+                    [[[
+                        if ((states['sensor.monthly_vlan1_rx'].state) > 1048576) {
+                        return `${Math.round((states['sensor.monthly_vlan1_rx'].state) / 1048576 * 100) / 100  } Gb`
+                          }
+                        else
+                          {
+                        return `${Math.round((states['sensor.monthly_vlan1_rx'].state) / 1024 * 100) / 100  } Mb`
+                          }
+                    ]]]
+              - type: custom:button-card
+                name: Monthly TX
+                entity: sensor.monthly_vlan1_tx
+                show_icon: false
+                styles:
+                  grid:
+                    - grid-template-areas: ' "n monthlyTX"'
+                    - grid-template-columns: 40% 60%
+                    - grid-template-rows: 1fr
+                  custom_fields:
+                    monthlyTX:
+                      - font-size: 20px
+                  name:
+                    - white-space: normal
+                    - padding-left: 16px
+                custom_fields:
+                  monthlyTX: |
+                    [[[
+                        if ((states['sensor.monthly_vlan1_tx'].state) > 1048576) {
+                        return `${Math.round((states['sensor.monthly_vlan1_tx'].state) / 1048576 * 100) / 100  } Gb`
+                          }
+                        else
+                          {
+                        return `${Math.round((states['sensor.monthly_vlan1_tx'].state) / 1024 * 100) / 100  } Mb`
+                          }
+                    ]]]
+          - type: custom:apexcharts-card
+            show:
+              loading: false
+            graph_span: 24h
+            header:
+              title: Internet
+              show: true
+              show_states: true
+              colorize_states: true
+            apex_config:
+              tooltip:
+                enabled: true
+                followCursor: true
+              grid:
+                show: false
+              chart:
+                height: 130
+              yaxis:
+                show: false
+                labels:
+                  style:
+                    fontSize: 11px
+                    colors: gray
+              xaxis:
+                labels:
+                  style:
+                    fontSize: 11px
+                    colors: gray
+                axisBorder:
+                  show: false
+              legend:
+                show: false
+                fontSize: 11px
+                labels:
+                  colors: grey
+            all_series_config:
+              stroke_width: 1.5
+              opacity: 0.2
+              type: area
+              show:
+                extremas: true
+            color_list:
+              - '#bf5e5e'
+              - '#3b6ba1'
+            series:
+              - entity: sensor.mikrotik_vlan1_rx
+                name: Download
+                transform: return x / 1024;
+                unit: Mbps
+                group_by:
+                  func: avg
+                  duration: 15min
+                show:
+                  in_chart: true
+                  in_header: false
+              - entity: sensor.mikrotik_vlan1_tx
+                name: Upload
+                transform: return x / 1024;
+                unit: Mbps
+                group_by:
+                  func: avg
+                  duration: 15min
+                show:
+                  in_chart: true
+                  in_header: false
+              - entity: sensor.mikrotik_vlan1_rx
+                name: Download
+                transform: return x / 1024;
+                unit: Mbps
+                show:
+                  in_chart: false
+                  in_header: true
+              - entity: sensor.mikrotik_vlan1_tx
+                name: Upload
+                transform: return x / 1024;
+                unit: Mbps
+                show:
+                  in_chart: false
+                  in_header: true
+            card_mod:
+              style: |
+                #header__states {
+                justify-content: flex-end !important;
+                display: inline-flex !important;
+                float: right;
+                padding: 8px;
+                }
+                #header__title {
+                display: inline-block;
+                padding: 8px;
+                font-size: 20px !important;
+                }
+          - type: custom:apexcharts-card
+            show:
+              loading: false
+            graph_span: 24h
+            header:
+              title: 2.4ghz WiFi
+              show: true
+              show_states: true
+              colorize_states: true
+            apex_config:
+              tooltip:
+                enabled: true
+                followCursor: true
+              grid:
+                show: false
+              chart:
+                height: 130
+              yaxis:
+                show: false
+                labels:
+                  style:
+                    fontSize: 11px
+                    colors: gray
+              xaxis:
+                labels:
+                  style:
+                    fontSize: 11px
+                    colors: gray
+                axisBorder:
+                  show: false
+              legend:
+                show: false
+                fontSize: 11px
+                labels:
+                  colors: grey
+            all_series_config:
+              stroke_width: 1.5
+              opacity: 0.2
+              type: area
+              show:
+                extremas: true
+            color_list:
+              - '#bf5e5e'
+              - '#3b6ba1'
+            series:
+              - entity: sensor.mikrotik_wlan1_rx
+                name: Recieve
+                transform: return x / 1024;
+                unit: Mbps
+                group_by:
+                  func: avg
+                  duration: 15min
+                show:
+                  in_chart: true
+                  in_header: false
+              - entity: sensor.mikrotik_wlan1_tx
+                name: Transmit
+                transform: return x / 1024;
+                unit: Mbps
+                group_by:
+                  func: avg
+                  duration: 15min
+                show:
+                  in_chart: true
+                  in_header: false
+              - entity: sensor.mikrotik_wlan1_rx
+                name: Recieve
+                transform: return x / 1024;
+                unit: Mbps
+                show:
+                  in_chart: false
+                  in_header: true
+              - entity: sensor.mikrotik_wlan1_tx
+                name: Transmit
+                transform: return x / 1024;
+                unit: Mbps
+                show:
+                  in_chart: false
+                  in_header: true
+            card_mod:
+              style: |
+                #header__states {
+                justify-content: flex-end !important;
+                display: inline-flex !important;
+                float: right;
+                padding: 8px;
+                }
+                #header__title {
+                display: inline-block;
+                padding: 8px;
+                font-size: 20px !important;
+                }
+          - type: custom:apexcharts-card
+            show:
+              loading: false
+            graph_span: 24h
+            header:
+              title: 5ghz WiFi
+              show: true
+              show_states: true
+              colorize_states: true
+            apex_config:
+              tooltip:
+                enabled: true
+                followCursor: true
+              grid:
+                show: false
+              chart:
+                height: 130
+              yaxis:
+                show: false
+                labels:
+                  style:
+                    fontSize: 11px
+                    colors: gray
+              xaxis:
+                labels:
+                  style:
+                    fontSize: 11px
+                    colors: gray
+                axisBorder:
+                  show: false
+              legend:
+                show: false
+            all_series_config:
+              stroke_width: 1.5
+              opacity: 0.2
+              type: area
+              show:
+                extremas: true
+            color_list:
+              - '#bf5e5e'
+              - '#3b6ba1'
+            series:
+              - entity: sensor.mikrotik_wlan2_rx
+                name: Recieve
+                transform: return x / 1024;
+                unit: Mbps
+                group_by:
+                  func: avg
+                  duration: 15min
+                show:
+                  in_chart: true
+                  in_header: false
+              - entity: sensor.mikrotik_wlan2_tx
+                name: Transmit
+                transform: return x / 1024;
+                unit: Mbps
+                group_by:
+                  func: avg
+                  duration: 15min
+                show:
+                  in_chart: true
+                  in_header: false
+              - entity: sensor.mikrotik_wlan2_rx
+                name: Recieve
+                transform: return x / 1024;
+                unit: Mbps
+                show:
+                  in_chart: false
+                  in_header: true
+              - entity: sensor.mikrotik_wlan2_tx
+                name: Transmit
+                transform: return x / 1024;
+                unit: Mbps
+                show:
+                  in_chart: false
+                  in_header: true
+            card_mod:
+              style: |
+                #header__states {
+                justify-content: flex-end !important;
+                display: inline-flex !important;
+                float: right;
+                padding: 8px;
+                }
+                #header__title {
+                display: inline-block;
+                padding: 8px;
+                font-size: 20px !important;
+                }
+  - title: System
+    path: system
+    icon: mdi:server
+    badges: []
+    cards:
+      - type: vertical-stack
+        cards:
+          - type: entity
+            entity: sensor.backup_state
+            attribute: last_uploaded
+            state_color: false
+            card_mod:
+              style: |
+                ha-card .value {
+                    font-size: 120%;
+                    padding: 0%;
+                      }
+
+                ha-card .name {
+                    font-size: 120%;
+                      }
+
+                ha-card .info {
+                    padding: 0px 0px 4px 16px
+                      }
+          - cards:
+              - type: custom:button-card
+                entity: sensor.cpu_temperature
+                icon: mdi:desktop-tower
+                aspect_ratio: 1/1
+                name: Server
+                styles:
+                  card:
+                    - padding: 10%
+                    - height: 120%
+                  grid:
+                    - grid-template-areas: '"i temp" "n n" "cpu cpu" "ram ram" "sd sd" "hdd hdd"'
+                    - grid-template-columns: 1fr 1fr
+                    - grid-template-rows: 1fr min-content min-content min-content min-content
+                  name:
+                    - font-size: 20px
+                    - color: white
+                    - align-self: middle
+                    - justify-self: start
+                    - padding-bottom: 4px
+                  img_cell:
+                    - justify-content: start
+                    - align-items: start
+                    - margin: none
+                  icon:
+                    - color: |
+                        [[[
+                          if (entity.state < 60) return 'lime';
+                          if (entity.state >= 60 && entity.state < 80) return 'orange';
+                          else return 'red';
+                        ]]]
+                    - width: 70%
+                    - margin-top: '-10%'
+                  custom_fields:
+                    temp:
+                      - align-self: start
+                      - justify-self: end
+                      - font-size: 20px
+                    cpu:
+                      - padding-bottom: 2px
+                      - align-self: middle
+                      - justify-self: start
+                      - '--text-color-sensor': >-
+                          [[[ if (states["sensor.processor_use_percent"].state >
+                          80) return "red"; ]]]
+                    ram:
+                      - padding-bottom: 2px
+                      - align-self: middle
+                      - justify-self: start
+                      - '--text-color-sensor': >-
+                          [[[ if (states["sensor.memory_use_percent"].state >
+                          80) return "red"; ]]]
+                    sd:
+                      - align-self: middle
+                      - justify-self: start
+                      - '--text-color-sensor': >-
+                          [[[ if (states["sensor.disk_use_percent_home"].state >
+                          80) return "red"; ]]]
+                    hdd:
+                      - align-self: middle
+                      - justify-self: start
+                      - '--text-color-sensor': >-
+                          [[[ if
+                          (states["sensor.disk_use_percent_share_sda1"].state >
+                          80) return "red"; ]]]
+                custom_fields:
+                  temp: |
+                    [[[
+                      return `<ha-icon
+                        icon="mdi:thermometer"
+                        style="width: 40px; height: 30px; ">
+                        </ha-icon><span>${entity.state}°C</span>`
+                    ]]]
+                  cpu: |
+                    [[[
+                      return `<ha-icon
+                        icon="mdi:server"
+                        style="width: 40px; height: 20px; color: deepskyblue;">
+                        </ha-icon><span>CPU: <span style="color: var(--text-color-sensor);">${states['sensor.processor_use_percent'].state}%</span></span>`
+                    ]]]
+                  ram: |
+                    [[[
+                      return `<ha-icon
+                        icon="mdi:memory"
+                        style="width: 40px; height: 20px; color: deepskyblue;">
+                        </ha-icon><span>RAM: <span style="color: var(--text-color-sensor);">${states['sensor.memory_use_percent'].state}%</span></span>`
+                    ]]]
+                  sd: |
+                    [[[
+                      return `<ha-icon
+                        icon="mdi:harddisk"
+                        style="width: 40px; height: 20px; color: deepskyblue;">
+                        </ha-icon><span>SD: <span style="color: var(--text-color-sensor);">${states['sensor.disk_use_percent_home'].state}%</span></span>`
+                    ]]]
+                  hdd: |
+                    [[[
+                      return `<ha-icon
+                        icon="mdi:harddisk"
+                        style="width: 40px; height: 20px; color: deepskyblue;">
+                        </ha-icon><span>HDD: <span style="color: var(--text-color-sensor);">${states['sensor.disk_use_percent_share_sda1'].state}%</span></span>`
+                    ]]]
+              - type: entities
+                icon: mdi:sun-thermometer-outline
+                entities:
+                  - entity: sensor.bedroom_lywsd03mmc_battery_level
+                    name: Bedroom
+                  - entity: sensor.lounge_lywsd03mmc_battery_level
+                    name: Lounge
+                  - entity: sensor.percy_lywsd03mmc_battery_level
+                    name: Percy
+                  - entity: sensor.study_lywsd03mmc_battery_level
+                show_header_toggle: false
+                title: Sensors
+            type: horizontal-stack
+          - type: horizontal-stack
+            cards:
+              - type: glance
+                entities:
+                  - entity: sensor.shelly1_bathroomfan_wifi_signal
+                    name: Bathroom Fan
+                  - entity: sensor.shelly1_ensuitefan_wifi_signal
+                    name: Ensuite Fan
+                  - entity: sensor.bletracker_wifi_signal
+                    name: ESP32 Pwr
+                  - entity: sensor.alarmmonitor_wifi_signal
+                    name: Alarm
+          - type: glance
+            entities:
+              - entity: sensor.adguard_average_processing_speed
+                name: Average Processing
+              - entity: switch.docker_addon_a0d7b954_adguard
+              - entity: sensor.adguard_dns_queries
+                name: DNS
+          - type: glance
+            entities:
+              - entity: sensor.docker_addon_40817795_mopidy
+                name: Snapcast
+              - entity: sensor.docker_addon_ccab4aaf_frigate
+              - entity: sensor.docker_ultrasonics
+                name: Ultrasonics
+              - entity: sensor.docker_addon_a0d7b954_esphome
+              - entity: sensor.docker_addon_core_duckdns
+              - entity: sensor.docker_addon_core_mosquitto
+              - entity: sensor.docker_addon_cebe7a76_hassio_google_drive_backup
+                name: G-Backup
+            state_color: true
+            show_state: false
+            columns: 4
+            card_mod:
+              style: |
+                ha-card {
+                  --paper-item-icon-color: green;
+                    }
